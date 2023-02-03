@@ -1,40 +1,54 @@
-<script setup></script>
+<script setup>
+import { ref, computed } from "vue";
+
+let input = ref("");
+const result = ref(0);
+
+const calculate = () => {
+  result.value = eval(input.value);
+};
+
+</script>
 
 <template>
   <body>
-    <div>
-      <button class="extra-operators">AC</button>
-      <button class="extra-operators">+/-</button>
-      <button class="extra-operators">%</button>
-      <button class="operators">÷</button>
-    </div>
+    <section>
+      <input v-model="input" type="text" />
+      <div id="result">{{ result }}</div>
+      <div>
+        <button @click="`${input = ''}`" class="extra-operators">AC</button>
+        <button class="extra-operators">+/-</button>
+        <button class="extra-operators">%</button>
+        <button class="operators">÷</button>
+      </div>
 
-    <div>
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button class="operators">x</button>
-    </div>
+      <div>
+        <button @click="input.innerText= '+'">7</button>
+        <button>8</button>
+        <button>9</button>
+        <button class="operators">x</button>
+      </div>
 
-    <div>
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button class="operators">-</button>
-    </div>
+      <div>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button class="operators">-</button>
+      </div>
 
-    <div>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button class="operators">+</button>
-    </div>
+      <div>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button class="operators">+</button>
+      </div>
 
-    <div>
-      <button id="zero">0</button>
-      <button>,</button>
-      <button class="operators">=</button>
-    </div>
+      <div>
+        <button id="zero">0</button>
+        <button>,</button>
+        <button @click="calculate" class="operators">=</button>
+      </div>
+    </section>
   </body>
 </template>
 
@@ -45,6 +59,25 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+section {
+  border: 2px solid rgb(234, 234, 76);
+  border-radius: 1rem;
+}
+
+input {
+  width: 32rem;
+  height: 6rem;
+  margin: 2rem 1rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 3rem;
+}
+
+div {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 button {
@@ -76,5 +109,17 @@ button:active {
 #zero {
   width: 15rem;
   border-radius: 5rem;
+}
+
+#result {
+  width: 15rem;
+  height: 4rem;
+  background-color: white;
+  margin-left: 18rem;
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
 }
 </style>

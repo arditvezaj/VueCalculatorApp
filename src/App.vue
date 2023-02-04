@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 
 let input = ref("");
 const result = ref(0);
@@ -7,7 +7,6 @@ const result = ref(0);
 const calculate = () => {
   result.value = eval(input.value);
 };
-
 </script>
 
 <template>
@@ -16,36 +15,36 @@ const calculate = () => {
       <input v-model="input" type="text" />
       <div id="result">{{ result }}</div>
       <div>
-        <button @click="`${input = ''}`" class="extra-operators">AC</button>
+        <button @click="`${(input = '')} && ${result = ''}`" class="extra-operators">C</button>
         <button class="extra-operators">+/-</button>
-        <button class="extra-operators">%</button>
-        <button class="operators">÷</button>
+        <button @click="input = input + '%'" class="extra-operators">%</button>
+        <button @click="input = input + '/'" class="operators">÷</button>
       </div>
 
       <div>
-        <button @click="input.innerText= '+'">7</button>
-        <button>8</button>
-        <button>9</button>
-        <button class="operators">x</button>
+        <button @click="input = input + '7'">7</button>
+        <button @click="input = input + '8'">8</button>
+        <button @click="input = input + '9'">9</button>
+        <button @click="input = input + '*'" class="operators">x</button>
       </div>
 
       <div>
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button class="operators">-</button>
+        <button @click="input = input + '4'">4</button>
+        <button @click="input = input + '5'">5</button>
+        <button @click="input = input + '6'">6</button>
+        <button @click="input = input + '-'" class="operators">-</button>
       </div>
 
       <div>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button class="operators">+</button>
+        <button @click="input = input + '1'">1</button>
+        <button @click="input = input + '2'">2</button>
+        <button @click="input = input + '3'">3</button>
+        <button @click="input = input + '+'" class="operators">+</button>
       </div>
 
       <div>
-        <button id="zero">0</button>
-        <button>,</button>
+        <button @click="input = input + '0'" id="zero">0</button>
+        <button @click="input = input + '.'">,</button>
         <button @click="calculate" class="operators">=</button>
       </div>
     </section>

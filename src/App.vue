@@ -7,6 +7,18 @@ const result = ref(0);
 const calculate = () => {
   result.value = eval(input.value);
 };
+
+const clearInput = () => {
+  input.value = "";
+}
+
+const changeSign = () => {
+  if (input.value[0] === "-") {
+    input.value = input.value.substring(1);
+  } else {
+    input.value = "-" + input.value;
+  }
+};
 </script>
 
 <template>
@@ -14,10 +26,8 @@ const calculate = () => {
     <section>
       <input v-model="input" type="text" />
       <div>
-        <button @click="input = ''" class="extra-operators">C</button>
-        <button @click="input = '-' + input" class="extra-operators">
-          +/-
-        </button>
+        <button @click="clearInput" class="extra-operators">C</button>
+        <button @click="changeSign" class="extra-operators">+/-</button>
         <button @click="input += '%'" class="extra-operators">%</button>
         <button @click="input += '/'" class="operators">÷</button>
       </div>
@@ -97,8 +107,7 @@ button {
   cursor: pointer;
 }
 
-button:hover,
-button:active {
+button:hover {
   background-color: rgb(225, 209, 138);
 }
 .extra-operators {

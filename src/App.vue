@@ -15,7 +15,9 @@ const calculate = () => {
       <input v-model="input" type="text" />
       <div>
         <button @click="input = ''" class="extra-operators">C</button>
-        <button class="extra-operators">+/-</button>
+        <button @click="input = '-' + input" class="extra-operators">
+          +/-
+        </button>
         <button @click="input += '%'" class="extra-operators">%</button>
         <button @click="input += '/'" class="operators">÷</button>
       </div>
@@ -57,7 +59,6 @@ const calculate = () => {
 
 <style scoped>
 body {
-  background-color: rgb(41, 40, 40);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,6 +66,7 @@ body {
 }
 
 section {
+  background-color: rgb(41, 40, 40);
   border: 2px solid rgb(234, 234, 76);
   border-radius: 1rem;
 }
@@ -112,5 +114,24 @@ button:active {
 #zero {
   width: 15rem;
   border-radius: 5rem;
+}
+
+@media (max-width: 49rem) {
+  input {
+    width: 90%;
+    height: 5rem;
+    font-size: 1.6rem;
+  }
+
+  button {
+    font-size: 1.5rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 0.3rem;
+  }
+
+  #zero {
+    width: 9.5rem;
+  }
 }
 </style>

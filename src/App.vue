@@ -1,16 +1,18 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-let input = ref("");
-const result = ref(0);
-
-const calculate = () => {
-  result.value = eval(input.value);
-};
+const input = ref("");
+const result = computed(() => {
+  try {
+    return eval(input.value);
+  } catch (error) {
+    return error.message;
+  }
+});
 
 const clearInput = () => {
   input.value = "";
-}
+};
 
 const changeSign = () => {
   if (input.value[0] === "-") {
@@ -19,12 +21,27 @@ const changeSign = () => {
     input.value = "-" + input.value;
   }
 };
+
+const preventCharacters = () => {
+  const validChars = /^[0-9+\-*/.]+$/;
+  if (!validChars.test(input.value)) {
+    input.value = input.value.slice(0, -1);
+  }
+};
+
+const calculateResult = () => {
+  if (isNaN(result.value)) {
+    input.value = result.value;
+  } else {
+    result.value = eval(input.value);
+  }
+};
 </script>
 
 <template>
   <body>
     <section>
-      <input v-model="input" type="text" />
+      <input v-model="input" type="type" @input="preventCharacters" />
       <div>
         <button @click="clearInput" class="extra-operators">C</button>
         <button @click="changeSign" class="extra-operators">+/-</button>
@@ -57,7 +74,7 @@ const changeSign = () => {
         <button @click="input += '0'" id="zero">0</button>
         <button @click="input += '.'">,</button>
         <button
-          @click="`${calculate()} && ${(input += '=' + result)}`"
+          @click="`${calculateResult()} && ${(input = result)}`"
           class="operators"
         >
           =
@@ -125,7 +142,7 @@ button:hover {
   border-radius: 5rem;
 }
 
-@media (max-width: 49rem) {
+@media (max-width: 48rem) {
   input {
     width: 90%;
     height: 5rem;

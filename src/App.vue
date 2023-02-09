@@ -10,8 +10,11 @@ const result = computed(() => {
   }
 });
 
+const operatorClicked = ref(false);
+
 const clearInput = () => {
   input.value = "";
+  operatorClicked.value = false;
 };
 
 const changeSign = () => {
@@ -29,7 +32,18 @@ const preventCharacters = () => {
   }
 };
 
+const addOperator = (operator) => {
+  operatorClicked.value = true;
+  input.value += operator;
+};
+
+const addInput = (num) => {
+  operatorClicked.value = true;
+  input.value += num;
+};
+
 const calculateResult = () => {
+  operatorClicked.value = true;
   if (isNaN(result.value)) {
     input.value = result.value;
   } else {
@@ -45,34 +59,34 @@ const calculateResult = () => {
       <div>
         <button @click="clearInput" class="extra-operators">C</button>
         <button @click="changeSign" class="extra-operators">+/-</button>
-        <button @click="input += '%'" class="extra-operators">%</button>
-        <button @click="input += '/'" class="operators">÷</button>
+        <button @click="addOperator('%')" class="extra-operators">%</button>
+        <button @click="addOperator('/')" class="operators">÷</button>
       </div>
 
       <div>
-        <button @click="input += '7'">7</button>
-        <button @click="input += '8'">8</button>
-        <button @click="input += '9'">9</button>
-        <button @click="input += '*'" class="operators">x</button>
+        <button @click="addInput('7')">7</button>
+        <button @click="addInput('8')">8</button>
+        <button @click="addInput('9')">9</button>
+        <button @click="addOperator('*')" class="operators">x</button>
       </div>
 
       <div>
-        <button @click="input += '4'">4</button>
-        <button @click="input += '5'">5</button>
-        <button @click="input += '6'">6</button>
-        <button @click="input += '-'" class="operators">-</button>
+        <button @click="addInput('4')">4</button>
+        <button @click="addInput('5')">5</button>
+        <button @click="addInput('6')">6</button>
+        <button @click="addOperator('-')" class="operators">-</button>
       </div>
 
       <div>
-        <button @click="input += '1'">1</button>
-        <button @click="input += '2'">2</button>
-        <button @click="input += '3'">3</button>
-        <button @click="input += '+'" class="operators">+</button>
+        <button @click="addInput('1')">1</button>
+        <button @click="addInput('2')">2</button>
+        <button @click="addInput('3')">3</button>
+        <button @click="addOperator('+')" class="operators">+</button>
       </div>
 
       <div>
-        <button @click="input += '0'" id="zero">0</button>
-        <button @click="input += '.'">,</button>
+        <button @click="addInput('0')" id="zero">0</button>
+        <button @click="addOperator('.')">,</button>
         <button
           @click="`${calculateResult()} && ${(input = result)}`"
           class="operators"

@@ -10,11 +10,8 @@ const result = computed(() => {
   }
 });
 
-const operatorClicked = ref(false);
-
 const clearInput = () => {
   input.value = "";
-  operatorClicked.value = false;
 };
 
 const changeSign = () => {
@@ -33,17 +30,14 @@ const preventCharacters = () => {
 };
 
 const addOperator = (operator) => {
-  operatorClicked.value = true;
   input.value += operator;
 };
 
 const addInput = (num) => {
-  operatorClicked.value = true;
   input.value += num;
 };
 
 const calculateResult = () => {
-  operatorClicked.value = true;
   if (isNaN(result.value)) {
     input.value = result.value;
   } else {
@@ -113,6 +107,7 @@ section {
 }
 
 input {
+  text-align: end;
   width: 32rem;
   height: 6rem;
   margin: 2rem 1rem;

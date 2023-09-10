@@ -1,8 +1,6 @@
 # CalculatorApp
 
-```sh
 https://vuejs-calculatorapp.netlify.app
-```
 
 ## Project Setup
 
